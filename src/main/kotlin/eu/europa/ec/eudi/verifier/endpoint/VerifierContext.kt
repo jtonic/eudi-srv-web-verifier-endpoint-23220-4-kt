@@ -322,7 +322,7 @@ class AppBeans : BeanRegistrarDsl({
         val validateJsonSchema by lazy {
             if (env.getProperty<Boolean>(
                     "verifier.validation.sdJwtVc.typeMetadata.jsonSchema.validation.enabled",
-                    true
+                    true,
                 )
             )
                 ValidateJsonSchema
@@ -334,7 +334,7 @@ class AppBeans : BeanRegistrarDsl({
             TypeMetadataPolicyEnum.Optional -> TypeMetadataPolicy.Optional(resolveTypeMetadata(), validateJsonSchema)
             TypeMetadataPolicyEnum.AlwaysRequired -> TypeMetadataPolicy.AlwaysRequired(
                 resolveTypeMetadata(),
-                validateJsonSchema
+                validateJsonSchema,
             )
 
             TypeMetadataPolicyEnum.RequiredFor -> {
