@@ -72,7 +72,7 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy
 import org.apache.http.ssl.SSLContextBuilder
 import org.slf4j.LoggerFactory
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.web.codec.CodecCustomizer
+import org.springframework.boot.http.codec.CodecCustomizer
 import org.springframework.context.support.BeanDefinitionDsl.BeanSupplierContext
 import org.springframework.context.support.beans
 import org.springframework.core.env.Environment
@@ -642,8 +642,8 @@ private fun Environment.getPropertyOrEnvVariable(property: String, defaultValue:
     return getProperty(property) ?: getProperty(toEnvironmentVariable(property)) ?: defaultValue
 }
 
-private inline fun <reified T> Environment.getPropertyOrEnvVariable(property: String): T? {
-    return getProperty(property, T::class.java) ?: getProperty(toEnvironmentVariable(property), T::class.java)
+private inline fun <reified T : Any> Environment.getPropertyOrEnvVariable(property: String): T? {
+    return getProperty<T>(property) ?: getProperty<T>(toEnvironmentVariable(property))
 }
 
 private fun toEnvironmentVariable(property: String): String {
