@@ -133,6 +133,6 @@ internal annotation class VerifierApplicationTest(
  */
 internal class BeansDslApplicationContextInitializer : ApplicationContextInitializer<GenericApplicationContext> {
     override fun initialize(applicationContext: GenericApplicationContext) {
-        beans(Clock.System).initializer().initialize(applicationContext)
+        // nothing
     }
 }
