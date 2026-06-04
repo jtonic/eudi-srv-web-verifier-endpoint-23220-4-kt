@@ -104,6 +104,7 @@ kotlin {
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",
+            "-Xcontext-parameters",
         )
         optIn.addAll(
             "kotlinx.serialization.ExperimentalSerializationApi",
