@@ -1,0 +1,23 @@
+name: eudi-srv-verifier-endpoint
+version: 1.0.0
+description: APM project for arrow-handson
+author: jtonic
+targets:
+  - copilot
+  - opencode
+dependencies:
+  apm:
+    - github/awesome-copilot/skills/review-and-refactor#170213423ed89c02cdb23a4f9be52b54fbcf2d1c
+    - git: https://github.com/JuliusBrussee/caveman.git
+      path: skills/caveman
+      ref: v1.9.0
+      alias: caveman
+    - git: https://github.com/anthropics/skills.git
+      path: skills/skill-creator
+      ref: main
+      alias: anthropics
+    - path: ./companion/apm/primitives/skills/kotlin-arrow-context
+    - path: ./companion/apm/primitives/bundle
+  mcp: []
+includes: auto
+scripts: {}

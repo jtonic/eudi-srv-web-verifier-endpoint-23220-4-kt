@@ -38,3 +38,15 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+### macOS ###
+.DS_Store
+
+### APM dependencies ###
+apm_modules/
+.agents/
+.github/agents
+.github/prompts
+.github/instructions
+.opencode/agents/
+.opencode/commands/

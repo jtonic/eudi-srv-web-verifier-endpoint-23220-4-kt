@@ -1,0 +1,16 @@
+name: eudi-srv-verifier-endpoint
+version: 1.0.0
+description: APM project for eudi-srv-verifier-endpoint
+author: jtonic
+targets:
+  - copilot
+  - opencode
+dependencies:
+  apm:
+    - git: https://github.com/JuliusBrussee/caveman.git
+      path: skills/caveman
+      ref: v1.9.0
+      alias: caveman
+  mcp: []
+includes: auto
+scripts: {}
