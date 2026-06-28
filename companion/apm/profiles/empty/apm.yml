@@ -1,7 +1,7 @@
 name: eudi-srv-verifier-endpoint
 version: 1.0.0
 description: APM project for arrow-handson
-author: jtonic
+author: antonel.pazargic@gmail.com
 targets:
   - copilot
   - opencode

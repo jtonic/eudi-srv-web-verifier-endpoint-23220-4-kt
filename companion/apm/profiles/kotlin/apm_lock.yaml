@@ -1,0 +1,50 @@
+lockfile_version: '1'
+generated_at: '2026-06-28T13:41:46.021179+00:00'
+apm_version: 0.20.0
+dependencies:
+- repo_url: alexandru/skills
+  host: github.com
+  resolved_commit: 2ac38aa8c8a27dab8e4066477e3f4da070a99ab4
+  virtual_path: skills/arrow-resource
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/arrow-resource
+  - .agents/skills/arrow-resource/SKILL.md
+  - .agents/skills/arrow-resource/references/resource.md
+  - .agents/skills/arrow-resource/scripts/verify-examples.kt
+  deployed_file_hashes:
+    .agents/skills/arrow-resource/SKILL.md: sha256:22ef6bdcd0459c9c7b3002d3457c87b72c6e7500a64405c7e22c7fb1e99612d3
+    .agents/skills/arrow-resource/references/resource.md: sha256:2e1e3dc78a9938911b515880f775b01e2f86efddac7ad8373f04376ed709d32c
+    .agents/skills/arrow-resource/scripts/verify-examples.kt: sha256:3f7f4db56f92f3e7aa3bcc96c932de48c1c51d7009c62bef269ce7f0418e9908
+  content_hash: sha256:6116b1614b4a1eff887c3d7b08965108c23d772300b892dd19013c53784aea60
+- repo_url: alexandru/skills
+  host: github.com
+  resolved_commit: 2ac38aa8c8a27dab8e4066477e3f4da070a99ab4
+  virtual_path: skills/kotlin-context-parameters
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/kotlin-context-parameters
+  - .agents/skills/kotlin-context-parameters/SKILL.md
+  - .agents/skills/kotlin-context-parameters/references/context-parameters.md
+  deployed_file_hashes:
+    .agents/skills/kotlin-context-parameters/SKILL.md: sha256:f5eadb8cf6ea3452cb89c5d9c7637586adf093f41a06418f469d7b00e90ac1d2
+    .agents/skills/kotlin-context-parameters/references/context-parameters.md: sha256:7db74fad7079096aec86a8840ab0bb144944c57fa1104b5dde4e88c638eb850f
+  content_hash: sha256:3cde55dfaaf8187a262102c3f297ff715cd61adeedb9f8eb18f55f56e59ea03a
+- repo_url: alexandru/skills
+  host: github.com
+  resolved_commit: 2ac38aa8c8a27dab8e4066477e3f4da070a99ab4
+  virtual_path: skills/kotlin-java-library
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/kotlin-java-library
+  - .agents/skills/kotlin-java-library/SKILL.md
+  - .agents/skills/kotlin-java-library/references/kotlin-java-library.md
+  - .agents/skills/kotlin-java-library/scripts/verify-examples.java
+  deployed_file_hashes:
+    .agents/skills/kotlin-java-library/SKILL.md: sha256:698cea1fd76517fa8a5b51bf4350b6741050457fb50a1f2f0a316254da81b460
+    .agents/skills/kotlin-java-library/references/kotlin-java-library.md: sha256:d2e6b0d412292ffadc0c94fc84b82297cdc75565b3efaaf17b0684a82003c834
+    .agents/skills/kotlin-java-library/scripts/verify-examples.java: sha256:0bcf5a8a3129688861ef33eeb3573be5f4363f8cf2f7b66ca76255de1335601d
+  content_hash: sha256:f66003b5a8ca431e491cfabed4bafc995a83196a4d9d42a94d1d667789ae8fa0

@@ -7,10 +7,9 @@ targets:
   - opencode
 dependencies:
   apm:
-    - git: https://github.com/JuliusBrussee/caveman.git
-      path: skills/caveman
-      ref: v1.9.0
-      alias: caveman
+    - alexandru/skills/skills/kotlin-context-parameters
+    - alexandru/skills/skills/arrow-resource
+    - alexandru/skills/skills/kotlin-java-library
   mcp: []
 includes: auto
 scripts: {}

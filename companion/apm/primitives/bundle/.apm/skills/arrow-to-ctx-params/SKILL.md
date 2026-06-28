@@ -7,7 +7,7 @@ metadata:
   target-kotlin: "2.4.0"
   current-kotlin: "2.3.0"
   current-arrow: "2.2.1.1"
-  target-arrow: "2.2.2.1"
+  target-arrow: "2.2.3"
   required-kotlin-feature: context-parameters
   feature-status: preview
 ---
@@ -31,12 +31,12 @@ migration in production code yet. The content here is for planning and experimen
 ### Arrow Upgrade
 
 Bump to the latest stable Arrow release (check https://github.com/arrow-kt/arrow/releases
-for the most recent version). As of this writing, **2.2.2.1** is the latest.
+for the most recent version). As of this writing, **2.2.3** is the latest.
 
 Update `gradle/libs.versions.toml`:
 
 ```toml
-arrow = "2.2.2.1"         # from "2.2.1.1"
+arrow = "2.2.3"         # from "2.2.1.1"
 ```
 
 Arrow 2.2.2 includes context-parameter-related fixes and expanded APIs that improve
@@ -63,7 +63,7 @@ kotlin {
 
 ### Recommended Upgrade Order
 
-1. Upgrade Arrow first (`arrow = "2.2.2.1"`), run `./gradlew build test` — green at current Kotlin
+1. Upgrade Arrow first (`arrow = "2.2.3"`), run `./gradlew build test` — green at current Kotlin
 2. Upgrade Kotlin (`kotlin = "2.4.0"`), add `-Xcontext-parameters`, run `./gradlew build test` — green before starting migration
 3. Now begin migrating functions to `context(Raise<E>)`
 
