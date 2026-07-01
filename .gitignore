@@ -50,3 +50,6 @@ apm_modules/
 .github/instructions
 .opencode/agents/
 .opencode/commands/
+
+### Miscs ###
+.tmp/

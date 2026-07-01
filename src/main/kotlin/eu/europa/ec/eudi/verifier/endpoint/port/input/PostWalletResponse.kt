@@ -17,6 +17,8 @@ package eu.europa.ec.eudi.verifier.endpoint.port.input
 
 import arrow.core.Either
 import arrow.core.getOrElse
+import arrow.core.raise.Raise
+import arrow.core.raise.context.ensureNotNull
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import arrow.core.raise.ensureNotNull
@@ -222,7 +224,7 @@ class PostWalletResponseLive(
     ): Either<WalletResponseValidationError, WalletResponseAcceptedTO?> = either {
         log.debug(requestId, walletResponse)
 
-        val presentation = loadPresentation(requestId).bind()
+        val presentation = loadPresentation(requestId)
         ensure(presentation is RequestObjectRetrieved) {
             WalletResponseValidationError.PresentationNotInExpectedState
         }
@@ -261,11 +263,12 @@ class PostWalletResponseLive(
             submitted to accepted
         }
 
-    private suspend fun loadPresentation(requestId: RequestId): Either<WalletResponseValidationError, Presentation> =
-        either {
-            val presentation = loadPresentationByRequestId(requestId)
-            ensureNotNull(presentation) { WalletResponseValidationError.PresentationNotFound }
-        }
+    context(_: Raise<WalletResponseValidationError>)
+    private suspend fun loadPresentation(requestId: RequestId): Presentation {
+        val presentation = loadPresentationByRequestId(requestId)
+        ensureNotNull(presentation) { WalletResponseValidationError.PresentationNotFound }
+        return presentation
+    }
 
     private fun responseObject(
         walletResponse: AuthorisationResponse,

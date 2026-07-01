@@ -18,6 +18,7 @@ package eu.europa.ec.eudi.verifier.endpoint.port.input
 import arrow.core.Either
 import arrow.core.NonEmptyList
 import arrow.core.getOrElse
+import arrow.core.raise.Raise
 import arrow.core.raise.either
 import eu.europa.ec.eudi.verifier.endpoint.adapter.out.mso.DeviceResponseError
 import eu.europa.ec.eudi.verifier.endpoint.adapter.out.mso.DeviceResponseValidator
@@ -135,23 +136,22 @@ internal class ValidateMsoMdocDeviceResponse(
     private val parsePemEncodedX509Certificates: ParsePemEncodedX509Certificates,
     private val deviceResponseValidatorFactory: (NonEmptyList<X509Certificate>?) -> DeviceResponseValidator,
 ) {
-    suspend operator fun invoke(deviceResponse: String, issuerChain: String?): DeviceResponseValidationResult = either {
+    suspend operator fun invoke(deviceResponse: String, issuerChain: String?): DeviceResponseValidationResult {
         val validator = deviceResponseValidator(issuerChain)
             .getOrElse {
                 return DeviceResponseValidationResult.Invalid(ValidationErrorTO.invalidIssuerChain())
             }
 
-        val documents = validator.ensureValid(deviceResponse)
-            .mapLeft { it.toValidationFailureTO() }
-            .bind()
-            .map { Json.encodeToJsonElement(it.toDocumentTO(clock)) }
-            .let { JsonArray(it) }
-
-        documents
-    }.fold(
-        ifLeft = { DeviceResponseValidationResult.Invalid(it) },
-        ifRight = { DeviceResponseValidationResult.Valid(it) },
-    )
+        return arrow.core.raise.recover({
+            val validDocs = validator.ensureValid(deviceResponse)
+            val documents = validDocs
+                .map { Json.encodeToJsonElement(it.toDocumentTO(clock)) }
+                .let { JsonArray(it) }
+            DeviceResponseValidationResult.Valid(documents)
+        }) { error: eu.europa.ec.eudi.verifier.endpoint.adapter.out.mso.DeviceResponseError ->
+            DeviceResponseValidationResult.Invalid(error.toValidationFailureTO())
+        }
+    }
 
     private fun deviceResponseValidator(issuerChainInPem: String?): Either<Throwable, DeviceResponseValidator> = Either.catch {
         deviceResponseValidatorFactory(

@@ -19,6 +19,7 @@ package eu.europa.ec.eudi.verifier.endpoint.port.input
 
 import arrow.core.*
 import arrow.core.raise.Raise
+import arrow.core.raise.context.ensure
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import arrow.core.raise.ensureNotNull
@@ -273,7 +274,7 @@ class InitTransactionLive(
         // if response mode is direct post jwt then generate ephemeral key
         val responseMode = responseMode(initTransactionTO)
 
-        val getWalletResponseMethod = getWalletResponseMethod(initTransactionTO).bind()
+        val getWalletResponseMethod = getWalletResponseMethod(initTransactionTO)
         val issuerChain = issuerChain(initTransactionTO).bind()
 
         val profile = initTransactionTO.profileOrDefault.toProfile()
@@ -372,7 +373,8 @@ class InitTransactionLive(
             }
         }
 
-    private fun getWalletResponseMethod(initTransactionTO: InitTransactionTO): Either<ValidationError, GetWalletResponseMethod> = either {
+    context(_: Raise<ValidationError>)
+    private fun getWalletResponseMethod(initTransactionTO: InitTransactionTO): GetWalletResponseMethod =
         initTransactionTO.redirectUriTemplate
             ?.let { template ->
                 with(createQueryWalletResponseRedirectUri) {
@@ -380,7 +382,6 @@ class InitTransactionLive(
                 }
                 GetWalletResponseMethod.Redirect(template)
             } ?: GetWalletResponseMethod.Poll
-    }
 
     /**
      * Gets the [ResponseMode] for the provided [InitTransactionTO].

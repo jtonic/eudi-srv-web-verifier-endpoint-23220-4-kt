@@ -158,12 +158,12 @@ internal class ValidateSdJwtVcOrMsoMdocVerifiablePresentation(
         }
 
         val handoverInfo = HandoverInfo(presentation, config)
-        val documents = ensureValid(verifiablePresentation.value, presentation.id, handoverInfo)
-            .mapLeft { error ->
-                log.warn("Failed to validate MsoMdoc VC. Reason: '$error'")
-                error.toWalletResponseValidationError()
-            }
-            .bind()
+        val documents = arrow.core.raise.context.withError({ error: eu.europa.ec.eudi.verifier.endpoint.adapter.out.mso.DeviceResponseError ->
+            log.warn("Failed to validate MsoMdoc VC. Reason: '$error'")
+            error.toWalletResponseValidationError()
+        }) {
+            ensureValid(verifiablePresentation.value, presentation.id, handoverInfo)
+        }
 
         if (Profile.HAIP == presentation.profile) {
             ensure(1 == documents.size) {
